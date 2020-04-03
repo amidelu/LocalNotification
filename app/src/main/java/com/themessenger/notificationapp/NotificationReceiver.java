@@ -11,6 +11,7 @@ public class NotificationReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        //this class will receive request and pass to service class
         Intent serviceIntent = new Intent(context, NotificationService.class);
         NotificationService.enqueueWork(context, serviceIntent);
     }

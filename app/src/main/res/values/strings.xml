@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Notification App</string>
+    <string name="notice">You may need to allow autostart service in order to get ifter and sehri notification because of security issues.</string>
+    <string name="don_t_show_this_again">Don\'t show this again</string>
 </resources>

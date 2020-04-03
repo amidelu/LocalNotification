@@ -24,6 +24,7 @@ public class NotificationService extends JobIntentService {
     String CHANNEL_ID = "my_channel_id_01";
     public static int REQUEST_CODE = 100;
 
+    //setting enqueue method for job scheduler with job id
     public static void enqueueWork(Context context, Intent intent) {
         enqueueWork(context, NotificationService.class, JOB_ID, intent);
     }
@@ -35,6 +36,7 @@ public class NotificationService extends JobIntentService {
 
     //set notification
     private void setNotification() {
+        //notification builder with notification channel for greater than oreo version
         NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
         NotificationCompat.Builder notificationBuilder;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -51,6 +53,7 @@ public class NotificationService extends JobIntentService {
 
         notificationBuilder = new NotificationCompat.Builder(this, CHANNEL_ID);
 
+        //this is for less than oreo version
         notificationBuilder.setAutoCancel(true)
                 .setDefaults(Notification.DEFAULT_ALL)
                 .setWhen(System.currentTimeMillis())
@@ -61,10 +64,12 @@ public class NotificationService extends JobIntentService {
                 .setContentText("This is body text")
                 .setContentInfo("Info");
 
+        //setting pending intent to open main activity after tapping the notification
         Intent notifyIntent = new Intent(this, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, REQUEST_CODE, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         notificationBuilder.setContentIntent(pendingIntent);
 
+        //building notification using notify
         notificationManager.notify(currentNotificationId, notificationBuilder.build());
     }
 }
